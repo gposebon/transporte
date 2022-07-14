@@ -3,24 +3,22 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import { TextField, Button } from '@mui/material';
 
-import { ClienteContext } from '../../ClienteContext'
+import { GlobalContext } from '../../GlobalContext'
 
 const FormCliente = () => {
 
-    const { addCliente } = useContext(ClienteContext)
+    const { addCliente } = useContext(GlobalContext)
     
     const [data, SetData] = useState( {
-        "nombre": "Coop Murphy",
-        "direccion": "Murphy",
+        "nombre": "Prueba4",
+        "direccion": "Santa Teresa",
         "telefono": "034615258",
         "cuit": "2525252525"
     })
-    useEffect( () => {
+
     const agregarCliente = (e) => {
-        e.preventDefault()
         addCliente(data)
     }
-}, [])
 
     return (
         <>
@@ -44,7 +42,7 @@ const FormCliente = () => {
                 </Grid>
             </Box>
             <Box sx={{ mt:5}}>
-                <Button variant="contained" onClick={agregarCliente}> Registrar Cliente </Button>
+                <Button variant="contained" onClick={() => agregarCliente()}> Registrar Cliente </Button>
             </Box>
         </>
     );

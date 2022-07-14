@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useContext, useState } from 'react';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import { FormControl, TextField, Button } from '@mui/material';
@@ -6,35 +6,40 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 
+import { GlobalContext } from '../../GlobalContext';
+
 const FormFlete = () => {
 
-    const [proveedorGasOil, setProveedorGasOil] = React.useState('');
-    const [cliente, setCliente] = React.useState('');
-    const [procede, setProcede] = React.useState('');
-    const [destino, setDestino] = React.useState('');
-    const [totalFlete, setTotalFlete] = React.useState(15000)
-    const [totalGastos, setTotalGastos] = React.useState(3000)
-    const [totalGasOil, setTotalGasOil] = React.useState(22500)
-    const [totalPorcentajeCamionero, setTotalPorcentajeCamionero] = React.useState(12000)
-    const [totalFleteConDescuento, setTotalFleteConDescuento] = React.useState(12000)
+    const { addFlete } = useContext(GlobalContext)
 
+    const [data, SetData] = useState( {
+    "fecha":"26/07/2022", 
+    "procede":"Maximo Paz", 
+    "destino" :"Alcorta",
+    "cp":"00000-00000156", 
+    "km":10, 
+    "tn" :30,
+    "tarifa":1000, 
+    "importeFlete": 0, 
+    "ltsGasOil":100, 
+    "precioGasOil":150, 
+    "totalGasOil": 0, 
+    "proveedorGasOil":"Petro", 
+    " gastosPeaje":1000, 
+    "gastosPuerto":1000,
+    "otrosGastos":0, 
+    "totalGastos":0, 
+    "porcentajeDescuento" :10,
+    "totalDescuento":0, 
+    "porcentajeChofer":10,
+    "totalChofer":0, 
+    "chofer":"1", 
+    "cliente":"1",
+    })
 
-    const handleChangeProveedor = (event) => {
-        setProveedorGasOil(event.target.value);
-    };
-
-    const handleChangeCliente = (event) => {
-        setCliente(event.target.value);
-    };
-
-    const handleChangeProcede = (event) => {
-        setProcede(event.target.value);
-    };
-
-    const handleChangeDestino = (event) => {
-        setDestino(event.target.value);
-    };
-
+    const agregarFlete = (e) => {
+        addFlete(data)
+    }
 
     return (
         <>
@@ -58,9 +63,8 @@ const FormFlete = () => {
                                 <Select
                                     labelId="demo-simple-select-label"
                                     id="demo-simple-select"
-                                    value={cliente}
+                                    value=""
                                     label="Cliente"
-                                    onChange={handleChangeCliente}
                                 >
                                     <MenuItem value={10}>Balsuar</MenuItem>
                                     <MenuItem value={20}>Transporte Rena</MenuItem>
@@ -80,9 +84,8 @@ const FormFlete = () => {
                                 <Select
                                     labelId="demo-simple-select-label"
                                     id="demo-simple-select"
-                                    value={procede}
+                                    value=""
                                     label="Procede"
-                                    onChange={handleChangeProcede}
                                 >
                                     <MenuItem value={10}>Maximo Paz</MenuItem>
                                     <MenuItem value={20}>La Cesira</MenuItem>
@@ -106,9 +109,8 @@ const FormFlete = () => {
                                 <Select
                                     labelId="demo-simple-select-label"
                                     id="demo-simple-select"
-                                    value={destino}
+                                    value=""
                                     label="Destino"
-                                    onChange={handleChangeDestino}
                                 >
                                     <MenuItem value={10}>Maximo Paz</MenuItem>
                                     <MenuItem value={20}>La Cesira</MenuItem>
@@ -121,9 +123,8 @@ const FormFlete = () => {
                                 <Select
                                     labelId="demo-simple-select-label"
                                     id="demo-simple-select"
-                                    value={proveedorGasOil}
+                                    value= ""
                                     label="Proveedor GasOil"
-                                    onChange={handleChangeProveedor}
                                 >
                                     <MenuItem value={10}>Petro</MenuItem>
                                     <MenuItem value={20}>Cooperativa</MenuItem>
@@ -141,59 +142,9 @@ const FormFlete = () => {
                 mt:5,
             }}
             >
-                <TextField
-                    sx={{
-                        mr:4,
-                    }}
-                    disabled
-                    id="filled-disabled"
-                    label="Total Flete"
-                    defaultValue= {totalFlete}
-                    variant="filled"
-                />
-                <TextField
-                    sx={{
-                        mr:4,
-                    }}
-                    disabled
-                    id="filled-disabled"
-                    label="Total Flete con descuento"
-                    defaultValue= {totalFleteConDescuento}
-                    variant="filled"
-                />
-                <TextField
-                    sx={{
-                        mr:4,
-                    }}
-                    disabled
-                    id="filled-disabled"
-                    label="Total Gastos"
-                    defaultValue= {totalGastos}
-                    variant="filled"
-                />
-                <TextField
-                    sx={{
-                        mr:4,
-                    }}
-                    disabled
-                    id="filled-disabled"
-                    label="Total GasOil"
-                    defaultValue= {totalGasOil}
-                    variant="filled"
-                />
-                <TextField
-                    sx={{
-                        mr:4,
-                    }}
-                    disabled
-                    id="filled-disabled"
-                    label="Porcentaje Camionero"
-                    defaultValue= {totalPorcentajeCamionero}
-                    variant="filled"
-                />
             </Box>
             <Box sx={{ mt:5}}>
-                <Button variant="contained"> Registrar Flete </Button>
+                <Button variant="contained" onClick={ () => agregarFlete() }> Registrar Flete </Button>
             </Box>
         </>
     );

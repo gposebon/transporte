@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useContext, useEffect } from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -11,80 +11,20 @@ import IconButton from '@mui/material/IconButton';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 
-const tituloColumnas = ["Cod", "Fecha", "Procede", "Destino", "Km.", "Tn.", "Tarifa", "Total", "Gas Oil"
-    , "Lts.", "Gastos", "Entrega", "Cliente"]
+import { GlobalContext } from '../../GlobalContext'
 
-const viajes = [
-    {
-        "id": 1,
-        "cod": 1,
-        "fecha": "05/05/2022",
-        "procede": "M. Paz",
-        "destino": "S. Lorenzo",
-        "kilometros": 150,
-        "toneladas": 10,
-        "tarifa": 3000,
-        "total": 300000,
-        "gasoil": 12400,
-        "litros": 150,
-        "gastos": 3500,
-        "entrega": 12000,
-        "cliente": "Centro"
-    },
-    {
-        "id": 2,
-        "cod": 2,
-        "fecha": "05/05/2022",
-        "procede": "M. Paz",
-        "destino": "S. Lorenzo",
-        "kilometros": 150,
-        "toneladas": 10,
-        "tarifa": 3000,
-        "total": 300000,
-        "gasoil": 12400,
-        "litros": 150,
-        "gastos": 3500,
-        "entrega": 12000,
-        "cliente": "Centro"
+const TablaFlete = () => {
 
-    },
-    {
-        "id": 3,
-        "cod": 3,
-        "fecha": "05/05/2022",
-        "procede": "M. Paz",
-        "destino": "S. Lorenzo",
-        "kilometros": 150,
-        "toneladas": 10,
-        "tarifa": 3000,
-        "total": 300000,
-        "gasoil": 12400,
-        "litros": 150,
-        "gastos": 3500,
-        "entrega": 12000,
-        "cliente": "Centro"
+    const {getFletes, fletes} = useContext(GlobalContext)
 
-    },
-    {
-        "id": 4,
-        "cod": 4,
-        "fecha": "05/05/2022",
-        "procede": "M. Paz",
-        "destino": "S. Lorenzo",
-        "kilometros": 150,
-        "toneladas": 10,
-        "tarifa": 3000,
-        "total": 300000,
-        "gasoil": 12400,
-        "litros": 150,
-        "gastos": 3500,
-        "entrega": 12000,
-        "cliente": "Centro"
+    useEffect(() => {
+        getFletes()
+    }, [])
 
-    },
-]
+    const tituloColumnas = ["Fecha", "Procede", "Destino","CP", "Km.", "Tn.", "Tarifa", "Importe Flete", 
+    "Lts Gas Oil","Precio GasOil", "Total GasOil", "Proveedor GasOil", "Gastos Peaje", "Gastos Puerto",
+    "Otros Gastos", "Total Gastos", "% descuento", "Total Desc", "% Chofer", "Total Chofer", "Chofer", "Cliente"]
 
-export default function TablaFlete() {
     return (
         <TableContainer component={Paper} sx={{ border: 1 }}>
             <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
@@ -96,26 +36,33 @@ export default function TablaFlete() {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {viajes.map((viaje) => (
+                    {fletes.map((flete) => (
                         <TableRow
-                            key={viaje.id}
+                            key={flete.id_flete}
                             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                         >
-                            <TableCell component="th" scope="row">
-                                {viaje.cod}
-                            </TableCell>
-                            <TableCell align="left">{viaje.fecha}</TableCell>
-                            <TableCell align="left">{viaje.procede}</TableCell>
-                            <TableCell align="left">{viaje.destino}</TableCell>
-                            <TableCell align="left">{viaje.kilometros}</TableCell>
-                            <TableCell align="left">{viaje.toneladas}</TableCell>
-                            <TableCell align="left">{viaje.tarifa}</TableCell>
-                            <TableCell align="left">{viaje.total}</TableCell>
-                            <TableCell align="left">{viaje.gasoil}</TableCell>
-                            <TableCell align="left">{viaje.litros}</TableCell>
-                            <TableCell align="left">{viaje.gastos}</TableCell>
-                            <TableCell align="left">{viaje.entrega}</TableCell>
-                            <TableCell align="left">{viaje.cliente}</TableCell>
+                            <TableCell align="left">{flete.fecha_flete}</TableCell>
+                            <TableCell align="left">{flete.procede_flete}</TableCell>
+                            <TableCell align="left">{flete.destino_flete}</TableCell>
+                            <TableCell align="left">{flete.cartadeporte_flete}</TableCell>
+                            <TableCell align="left">{flete.kilometros_flete}</TableCell>
+                            <TableCell align="left">{flete.toneladas_flete}</TableCell>
+                            <TableCell align="left">{flete.tarifa_flete}</TableCell>
+                            <TableCell align="left">{flete.importe_flete}</TableCell>
+                            <TableCell align="left">{flete.gasoil_flete}</TableCell>
+                            <TableCell align="left">{flete.preciogasoil_flete}</TableCell>
+                            <TableCell align="left">{flete.totalgasoil_flete}</TableCell>
+                            <TableCell align="left">{flete.proveedorgasoil_flete}</TableCell>
+                            <TableCell align="left">{flete.gastospeaje_flete}</TableCell>
+                            <TableCell align="left">{flete.gastospuerto_flete}</TableCell>
+                            <TableCell align="left">{flete.otrosgastos_flete}</TableCell>
+                            <TableCell align="left">{flete.totalgastos_flete}</TableCell>
+                            <TableCell align="left">{flete.porcentajedescuento_flete}</TableCell>
+                            <TableCell align="left">{flete.totaldescuento_flete}</TableCell>
+                            <TableCell align="left">{flete.porcentajechofer_flete}</TableCell>
+                            <TableCell align="left">{flete.totalchofer_flete}</TableCell>
+                            <TableCell align="left">{flete.idchofer_flete}</TableCell>
+                            <TableCell align="left">{flete.idcliente_flete}</TableCell>
                             <TableCell align="left">
                                 <ButtonGroup variant="contained" aria-label="outlined primary button group">
                                 <IconButton aria-label="delete" size="small">
@@ -133,3 +80,5 @@ export default function TablaFlete() {
         </TableContainer>
     );
 }
+
+export default TablaFlete

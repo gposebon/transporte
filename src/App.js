@@ -6,7 +6,7 @@ import {
 
 import './App.css';
 
-import { ClienteProvider } from './ClienteContext'
+import { GlobalProvider } from './GlobalContext'
 
 import Header from './components/Header/Header';
 
@@ -20,7 +20,7 @@ import FormularioCliente from "./views/FormularioCliente";
 function App() {
   return (
     <div className="App">
-      <ClienteProvider>
+      <GlobalProvider>
         <Router>
           <Header />
           <Routes>
@@ -30,7 +30,7 @@ function App() {
             <Route path="/formularioCliente" element={<FormularioCliente />} />
           </Routes>
         </Router>
-      </ClienteProvider>
+      </GlobalProvider>
     </div>
   );
 }

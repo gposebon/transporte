@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -11,11 +11,15 @@ import IconButton from '@mui/material/IconButton';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 
-import { ClienteContext } from '../../ClienteContext'
+import { GlobalContext } from '../../GlobalContext'
 
 const TablaCliente = () => {
 
-    const { clientes, addCliente } = useContext(ClienteContext)
+    const { clientes, getClientes, deleteCliente } = useContext(GlobalContext)
+
+    useEffect(() => {
+        getClientes()
+    }, [])
 
     const tituloColumnas = ["Nombre", "Direccion", "Telefono", "Cuit"]
 
@@ -46,8 +50,8 @@ const TablaCliente = () => {
                                     <IconButton aria-label="delete" size="small">
                                         <EditIcon fontSize="inherit" />
                                     </IconButton>
-                                    <IconButton aria-label="delete" size="small">
-                                        <DeleteIcon fontSize="inherit" />
+                                    <IconButton aria-label="delete" size="small" onClick={()=> deleteCliente(cliente.id_cliente)}>
+                                        <DeleteIcon fontSize="inherit"/>
                                     </IconButton>
                                 </ButtonGroup>
                             </TableCell>
