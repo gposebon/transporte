@@ -17,6 +17,8 @@ const TablaFlete = () => {
 
     const {getFletes, fletes} = useContext(GlobalContext)
 
+    console.log(fletes)
+
     useEffect(() => {
         getFletes()
     }, [])
@@ -53,8 +55,8 @@ const TablaFlete = () => {
                             <TableCell align="left">{flete.preciogasoil_flete}</TableCell>
                             <TableCell align="left">{flete.totalgasoil_flete}</TableCell>
                             <TableCell align="left">{flete.proveedorgasoil_flete}</TableCell>
-                            <TableCell align="left">{flete.gastospeaje_flete}</TableCell>
-                            <TableCell align="left">{flete.gastospuerto_flete}</TableCell>
+                            <TableCell align="left">{flete.gastopeaje_flete}</TableCell>
+                            <TableCell align="left">{flete.gastopuerto_flete}</TableCell>
                             <TableCell align="left">{flete.otrosgastos_flete}</TableCell>
                             <TableCell align="left">{flete.totalgastos_flete}</TableCell>
                             <TableCell align="left">{flete.porcentajedescuento_flete}</TableCell>

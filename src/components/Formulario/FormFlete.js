@@ -10,36 +10,48 @@ import { GlobalContext } from '../../GlobalContext';
 
 const FormFlete = () => {
 
-    const { addFlete } = useContext(GlobalContext)
+    const { addFlete, clientes } = useContext(GlobalContext)
 
-    const [data, SetData] = useState( {
-    "fecha":"26/07/2022", 
-    "procede":"Maximo Paz", 
-    "destino" :"Alcorta",
-    "cp":"00000-00000156", 
-    "km":10, 
-    "tn" :30,
-    "tarifa":1000, 
-    "importeFlete": 0, 
-    "ltsGasOil":100, 
-    "precioGasOil":150, 
-    "totalGasOil": 0, 
-    "proveedorGasOil":"Petro", 
-    " gastosPeaje":1000, 
-    "gastosPuerto":1000,
-    "otrosGastos":0, 
-    "totalGastos":0, 
-    "porcentajeDescuento" :10,
-    "totalDescuento":0, 
-    "porcentajeChofer":10,
-    "totalChofer":0, 
-    "chofer":"1", 
-    "cliente":"1",
-    })
+    const valoresIniciales = {
+        "fecha":"", 
+        "procede":"", 
+        "destino" :"",
+        "cp":"", 
+        "km": 0, 
+        "tn" : 0,
+        "tarifa": 0, 
+        "importeFlete": 0, 
+        "ltsGasOil": 0, 
+        "precioGasOil": 0, 
+        "totalGasOil":  0, 
+        "proveedorGasOil": "", 
+        "gastosPeaje": 0, 
+        "gastosPuerto":0,
+        "otrosGastos":0, 
+        "totalGastos":0, 
+        "porcentajeDescuento":0,
+        "totalDescuento":0, 
+        "porcentajeChofer":0,
+        "totalChofer":0, 
+        "chofer": 0, 
+        "cliente": 0,
+        }
 
-    const agregarFlete = (e) => {
+    const [data, setData] = useState(valoresIniciales)
+
+    const agregarFlete = () => {
         addFlete(data)
     }
+
+    const handleInputChange = (e) => { 
+        const { name, value } = e.target;
+
+        console.log(name, value)
+        setData({
+            ...data,
+            [name]: value,
+        });
+    };
 
     return (
         <>
@@ -54,10 +66,34 @@ const FormFlete = () => {
                                 m: 2,
                             }}
                         >
-                            <TextField sx={{ m: 1 }} id="flete_fecha" label="Fecha" variant="standard" />
-                            <TextField sx={{ m: 1 }} id="flete_kilometros" label="Kilometros" variant="standard" />
-                            <TextField sx={{ m: 1 }} id="flete_litros_gasoil" label="Litros GasOil" variant="standard" />
-                            <TextField sx={{ m: 1 }} id="flete_peaje" label="Peaje" variant="standard" />
+                            <TextField
+                                sx={{ m: 1 }}
+                                defaultValue={data.fecha}
+                                onChange={handleInputChange}
+                                name="fecha"
+                                label="Fecha"
+                            />
+                            <TextField
+                                sx={{ m: 1 }}
+                                defaultValue={data.procede}
+                                onChange={handleInputChange}
+                                name="procede"
+                                label="Procede"
+                            />
+                            <TextField
+                                sx={{ m: 1 }}
+                                defaultValue={data.destino}
+                                onChange={handleInputChange}
+                                name="destino"
+                                label="Destino"
+                            />
+                            <TextField
+                                sx={{ m: 1 }}
+                                defaultValue={data.cp}
+                                onChange={handleInputChange}
+                                name="cp"
+                                label="Carta de Porte"
+                            />
                             <FormControl variant="standard" sx={{ m: 1, minWidth: 200 }}>
                                 <InputLabel id="demo-simple-select-label">Cliente</InputLabel>
                                 <Select
@@ -66,9 +102,9 @@ const FormFlete = () => {
                                     value=""
                                     label="Cliente"
                                 >
-                                    <MenuItem value={10}>Balsuar</MenuItem>
-                                    <MenuItem value={20}>Transporte Rena</MenuItem>
-                                    <MenuItem value={30}>Clave de Fa</MenuItem>
+                                    {clientes.map( (cliente) => {
+                                        <MenuItem >{cliente.nombre_cliente}</MenuItem>
+                                    })}
                                 </Select>
                             </FormControl>
                         </Box>
